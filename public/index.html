@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="设备异常台账 · 使用虚构数据的本地维护演练">
+  <title>设备异常台账 · 维保工作台</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">维</span><span>维保工作台</span></div>
+    <div class="topbar-right"><span class="demo-label"><i></i>虚构数据 · 本地演练</span><span class="plant">演练工厂</span><span class="avatar" aria-hidden="true">演</span></div>
+  </header>
+  <main>
+    <div class="breadcrumb">设备运维<span>/</span>异常台账</div>
+    <section class="page-heading">
+      <div><div class="eyebrow">EQUIPMENT OPERATIONS</div><h1>设备异常台账</h1><p>关注未关闭的异常，让每一项处理都有进度。</p></div>
+      <button class="primary-button" id="export-button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 16v4h14v-4"/></svg>导出 CSV</button>
+    </section>
+    <section class="metrics" aria-label="台账概览">
+      <article class="metric"><div class="metric-top"><span>全部异常</span><span class="metric-icon blue" aria-hidden="true">▤</span></div><strong id="metric-total">6</strong><p>本次演练的全部记录</p></article>
+      <article class="metric"><div class="metric-top"><span>待处理</span><span class="metric-icon amber" aria-hidden="true">◷</span></div><strong id="metric-pending">3</strong><p>等待安排检查与处置</p></article>
+      <article class="metric"><div class="metric-top"><span>处理中</span><span class="metric-icon violet" aria-hidden="true">↻</span></div><strong id="metric-processing">2</strong><p>负责人正在跟进</p></article>
+      <article class="metric"><div class="metric-top"><span>已关闭</span><span class="metric-icon green" aria-hidden="true">✓</span></div><strong id="metric-closed">1</strong><p>已完成处置的记录</p></article>
+    </section>
+    <section class="ledger-panel" aria-label="异常记录">
+      <div class="panel-title"><div><h2>异常记录</h2><span class="panel-caption">2026 年 11 月 1 日 · 演练快照</span></div><span class="record-total">共 <b>6</b> 条记录</span></div>
+      <div class="filter-bar">
+        <div class="view-tabs" role="tablist" aria-label="快捷筛选">
+          <button role="tab" aria-selected="true" data-view="all" id="all-tab" aria-controls="ledger-table">全部异常</button>
+          <button role="tab" aria-selected="false" data-view="high-open" id="high-open-tab" aria-controls="ledger-table"><span class="tab-dot"></span>高优先级未关闭</button>
+        </div>
+        <div class="filter-inputs">
+          <label class="search-field"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></svg><input id="search" type="search" aria-label="搜索工单" placeholder="搜索工单、设备或异常"></label>
+          <label class="visually-hidden" for="status">处理状态</label>
+          <select id="status"><option value="all">全部状态</option><option>待处理</option><option>处理中</option><option>已关闭</option></select>
+          <button class="text-button" id="reset-button">重置</button>
+        </div>
+      </div>
+      <div class="table-scroll">
+        <table id="ledger-table" aria-label="设备异常记录">
+          <thead><tr><th>工单 / 设备</th><th>异常描述</th><th>优先级</th><th>处理状态</th><th>负责人</th><th>上报时间</th><th><span class="visually-hidden">操作</span></th></tr></thead>
+          <tbody id="ticket-rows"></tbody>
+        </table>
+      </div>
+      <div class="table-footer"><span id="result-count" aria-live="polite">当前显示 6 条</span><span>点击工单编号可查看详情</span></div>
+    </section>
+    <footer class="page-footer"><span><span class="footer-dot"></span>本机数据快照</span><span>所有设备、人员和异常均为虚构，仅用于软件维护演练。</span></footer>
+  </main>
+  <dialog id="ticket-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-heading"><div><span class="eyebrow">EXCEPTION DETAIL</span><h2 id="dialog-title">工单详情</h2></div><button id="close-dialog" class="close-button" aria-label="关闭详情">×</button></div>
+    <dl id="ticket-details"></dl><p class="dialog-note">本页使用演练数据，不连接真实设备。</p>
+  </dialog>
+  <div id="toast" class="toast" role="status" hidden></div>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
